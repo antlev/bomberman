@@ -1,17 +1,18 @@
 /*
- * Turn.cpp
+ * Wall.cpp
  *
  *  Created on: Jul 5, 2018
  *      Author: antoine
  */
 
-#include "Turn.h"
+#include "Wall.h"
 
-Turn::Turn() {
+Wall::Wall() {
 	// TODO Auto-generated constructor stub
 
 }
 
-int Turn::nextTurn(){
-	return 0;
+Wall::~Wall() {
+	// TODO Auto-generated destructor stub
 }
+

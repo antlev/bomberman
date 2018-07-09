@@ -32,10 +32,9 @@ int Game::isFinished(){
 void Game::start(){
 	std::cout << "Game is staring" << std::endl;
 	nbTurn = 1;
-	turn = Turn();
 }
 void Game::nextTurn(){
-	winner = turn.nextTurn();
+	gameboard.updateGameboard();
 }
 void Game::showResults(){
 

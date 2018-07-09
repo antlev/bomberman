@@ -12,6 +12,20 @@ class Square {
 public:
 	Square();
 	virtual ~Square();
+	int getSquare();
+	bool isEmpty();
+	bool isBomb();
+	bool bombUpdate();
+	bool isPlayer();
+	void updatePlayer();
+	int getMove(int playerNb);
+
+
+private:
+	Bomb* bombPt;
+	Player* playerPt;
+
+
 };
 
 #endif /* SQUARE_H_ */

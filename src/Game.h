@@ -8,7 +8,6 @@
 #ifndef GAME_H_
 #define GAME_H_
 #include "Gameboard.h"
-#include "Turn.h"
 
 struct Game {
 public:
@@ -27,7 +26,6 @@ private:
 	short wallPlacement;
 	int winner;
 	std::string confFile;
-	Turn turn;
 	Gameboard gameboard;
 };
 
