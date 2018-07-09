@@ -26,7 +26,7 @@ private:
 	short wallPlacement;
 	int winner;
 	std::string confFile;
-	Gameboard gameboard;
+	Gameboard* gameboard;
 };
 
 #endif /* GAME_H_ */

@@ -7,6 +7,10 @@
 
 #include <iostream>
 #include "Game.h"
+#include <chrono>
+#include <thread>
+#include <stdlib.h>
+#include <time.h>
 
 Game::Game(std::string confFile){
 	if(confFile != ""){
@@ -22,19 +26,35 @@ Game::Game(std::string confFile){
 	}
 	winner = 0;
 	nbTurn = 0;
-	int size = 50;
-	gameboard = Gameboard(size, nbPlayer);
+	int size = 10;
+	gameboard = new Gameboard(size, nbPlayer);
+
+	srand (time(NULL));
+	int playerNb;
+
+	for(playerNb=0;playerNb<nbPlayer;playerNb++){
+		  int col,row;
+		  col = rand() % size;
+		  row = rand() % size;
+		  gameboard->putPlayer(row, col, playerNb);
+	}
 }
 int Game::isFinished(){
+	if(nbTurn < 10){
+		return 0;
+	}
 	std::cout << "Game is finished" << std::endl;
-	return 0;
+	return 1;
 }
 void Game::start(){
-	std::cout << "Game is staring" << std::endl;
+	std::cout << "Game is starting" << std::endl;
 	nbTurn = 1;
 }
 void Game::nextTurn(){
-	gameboard.updateGameboard();
+	std::cout << "Turn number " << std::to_string(nbTurn) << std::endl;
+	gameboard->updateGameboard();
+	nbTurn++;
+	std::this_thread::sleep_for(std::chrono::seconds(1));
 }
 void Game::showResults(){
 

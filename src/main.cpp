@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
 
 	game.Game::start();
 
-	while(game.Game::isFinished() != 0){
+	while(game.Game::isFinished() != 1){
 		game.Game::nextTurn();
 	}
 

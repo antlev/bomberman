@@ -16,16 +16,17 @@ public:
 	bool isEmpty();
 	bool isBomb();
 	bool bombUpdate();
-	bool isPlayer();
+	int isPlayer();
+	bool isWall();
 	void updatePlayer();
 	int getMove(int playerNb);
-
+	void placeWall();
+	void placePlayer(int playerNb);
 
 private:
+	int status;
 	Bomb* bombPt;
 	Player* playerPt;
-
-
 };
 
 #endif /* SQUARE_H_ */
