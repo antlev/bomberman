@@ -29,15 +29,25 @@ Game::Game(std::string confFile){
 	int size = 10;
 	gameboard = new Gameboard(size, nbPlayer);
 
+
+	std::cout << "test expected 12 >" << std::to_string(gameboard->getDestination(22,1)) << std::endl;
+	std::cout << "test expected 55 >" << std::to_string(gameboard->getDestination(45,2))<< std::endl;
+	std::cout << "test expected 33 >" << std::to_string(gameboard->getDestination(32,4))<< std::endl;
+
 	srand (time(NULL));
 	int playerNb;
 
 	for(playerNb=0;playerNb<nbPlayer;playerNb++){
 		  int col,row;
-		  col = rand() % size;
-		  row = rand() % size;
-		  gameboard->putPlayer(row, col, playerNb);
+		  Player* player = new Player(playerNb);
+		  do{
+			  col = (rand() % (size-2))+1;
+			  row = (rand() % (size-2))+1;
+		  } while(gameboard->isOccupied(row*size+col));
+		  std::cout << "putting player " + std::to_string(playerNb) + " in position " + std::to_string(row) +":" + std::to_string(col) << std::endl; // DEBUG
+		  gameboard->putPlayer(row*size+col, player);
 	}
+	gameboard->printDebug(); // DEBUG
 }
 int Game::isFinished(){
 	if(nbTurn < 10){

@@ -14,19 +14,22 @@ public:
 	virtual ~Square();
 	int getSquare();
 	bool isEmpty();
+	bool isOccupied();
 	bool isBomb();
 	bool bombUpdate();
 	int isPlayer();
+	Player* getPlayer();
 	bool isWall();
 	void updatePlayer();
-	int getMove(int playerNb);
-	void placeWall();
-	void placePlayer(int playerNb);
+	void emptyPlayer();
+	void putPlayer(Player* player);
+	void putBomb();
+	void putWall();
 
 private:
-	int status;
 	Bomb* bombPt;
 	Player* playerPt;
+	Wall* wallPt;
 };
 
 #endif /* SQUARE_H_ */

@@ -18,20 +18,27 @@ public:
 	Gameboard(int size, int numberOfPlayers);
 	void buildWalls();
 	void updateGameboard();
-	bool isBombDestinationEmpty(int row, int col);
-	bool isDestinationEmpty(int row,int col,int move);
+	bool isBombDestinationEmpty(int position);
 	bool canPlayerPutBomb(int playerNb);
-	void movePlayer(int row,int col, int move);
+	void ActionPlayer(int position, int move, Player* player);
 	void putBomb(int row,int col, int move);
-	void putPlayer(int row,int col, int playerNb);
+	void putPlayer(int position, Player* player);
+	bool isOccupied(int position);
+	void printDebug();
+
+	int getDestination(int position,int move); // should be private
 
 private:
 	Square* grid;
 	int size;
 
-	void printDebug();
 	void AreBombExploding();
 	void getPlayersMove();
+	int askPlayerMove(int player);
+	bool isActionValid(int position, int move, Player* player);
+	void movePlayer(int move, Player* player);
+	bool isDestinationOccupied(int position, int move);
+
 };
 
 #endif /* GAMEBOARD_H_ */

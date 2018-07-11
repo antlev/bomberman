@@ -10,12 +10,13 @@
 
 class Player {
 public:
-	Player();
+	Player(int number);
 	int playerNumber();
-	int getMove();
+	bool canPutBomb();
 
 private:
 	int number;
+	int numberBomb;
 };
 
 #endif /* PLAYER_H_ */
