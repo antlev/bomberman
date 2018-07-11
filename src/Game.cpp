@@ -29,11 +29,6 @@ Game::Game(std::string confFile){
 	int size = 10;
 	gameboard = new Gameboard(size, nbPlayer);
 
-
-	std::cout << "test expected 12 >" << std::to_string(gameboard->getDestination(22,1)) << std::endl;
-	std::cout << "test expected 55 >" << std::to_string(gameboard->getDestination(45,2))<< std::endl;
-	std::cout << "test expected 33 >" << std::to_string(gameboard->getDestination(32,4))<< std::endl;
-
 	srand (time(NULL));
 	int playerNb;
 
@@ -50,10 +45,10 @@ Game::Game(std::string confFile){
 	gameboard->printDebug(); // DEBUG
 }
 int Game::isFinished(){
-	if(nbTurn < 10){
+	if(winner == 0){
 		return 0;
 	}
-	std::cout << "Game is finished" << std::endl;
+	std::cout << "Game is finished ! winner is player " << std::to_string(winner) << std::endl;
 	return 1;
 }
 void Game::start(){
@@ -62,7 +57,7 @@ void Game::start(){
 }
 void Game::nextTurn(){
 	std::cout << "Turn number " << std::to_string(nbTurn) << std::endl;
-	gameboard->updateGameboard();
+	winner = gameboard->updateGameboard();
 	nbTurn++;
 	std::this_thread::sleep_for(std::chrono::seconds(1));
 }

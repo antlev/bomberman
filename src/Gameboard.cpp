@@ -46,12 +46,15 @@ void Gameboard::printDebug(){
 		std::cout << std::endl;
 	}
 }
-void Gameboard::updateGameboard(){
+int Gameboard::updateGameboard(){
 	AreBombExploding();
 	getPlayersMove();
 
 	printDebug(); // DEBUG
-
+	return isThereAWinner();
+}
+int Gameboard::isThereAWinner(){
+	return 0; // TODO
 }
 void Gameboard::getPlayersMove(){
 	Player* player;
@@ -105,10 +108,16 @@ void Gameboard::AreBombExploding(){
 	for(int row=0;row<size;row++){
 		for(int col=0;col<size;col++){
 			if(grid[row*size+col].isBomb()){
-				grid[row*size+col].bombUpdate();
+				if(grid[row*size+col].bombUpdate()){
+					grid[row*size+col].emptyBomb();
+					explosion(row*size+col);
+				}
 			}
 		}
 	}
+}
+void Gameboard::explosion(int position){
+	// TODO
 }
 bool Gameboard::isDestinationOccupied(int position,int move){
 	int destination = getDestination(position, move);

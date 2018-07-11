@@ -8,7 +8,7 @@
 #include "Bomb.h"
 
 Bomb::Bomb() {
-	counter=100;
+	counter=3; // TODO
 }
 Bomb::~Bomb(){
 
@@ -21,4 +21,6 @@ bool Bomb::updateState(){
 		return 0;
 	}
 }
-
+void Bomb::explosion(){
+	// TODO
+}

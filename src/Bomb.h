@@ -13,6 +13,7 @@ public:
 	Bomb();
 	virtual ~Bomb();
 	bool updateState();
+	void explosion();
 
 private:
 	int counter;

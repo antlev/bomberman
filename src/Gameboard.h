@@ -17,7 +17,7 @@ public:
 	Gameboard();
 	Gameboard(int size, int numberOfPlayers);
 	void buildWalls();
-	void updateGameboard();
+	int updateGameboard();
 	bool isBombDestinationEmpty(int position);
 	bool canPlayerPutBomb(int playerNb);
 	void ActionPlayer(int position, int move, Player* player);
@@ -38,7 +38,8 @@ private:
 	bool isActionValid(int position, int move, Player* player);
 	void movePlayer(int move, Player* player);
 	bool isDestinationOccupied(int position, int move);
-
+	int isThereAWinner();
+	void explosion(int position);
 };
 
 #endif /* GAMEBOARD_H_ */

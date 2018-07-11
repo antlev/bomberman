@@ -38,21 +38,26 @@ void Square::putPlayer(Player* player){
 	}
 	playerPt = player;
 }
+void Square::emptyPlayer(){
+	playerPt = 0;
+}
 void Square::putBomb(){
 	bombPt = new Bomb();
+}
+void Square::emptyBomb(){
+	bombPt = 0;
 }
 void Square::putWall(){
 	wallPt = new Wall();
 }
-void Square::emptyPlayer(){
-	playerPt = 0;
-}
+
 bool Square::isBomb(){
 	if(bombPt != 0){
 		return 1;
 	}
 	return 0;
 }
+
 bool Square::isWall(){
 	if(wallPt != 0){
 		return 1;
