@@ -48,6 +48,10 @@ int Game::isFinished(){
 	if(winner == 0){
 		return 0;
 	}
+	if(winner == -1){
+		std::cout << "Game is finished ! It's a draw !" << std::endl;
+		return 1;
+	}
 	std::cout << "Game is finished ! winner is player " << std::to_string(winner) << std::endl;
 	return 1;
 }

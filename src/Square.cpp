@@ -9,6 +9,7 @@
 #include "Wall.h"
 #include "Square.h"
 #include <iostream>
+#define SAFE_DELETE(a) if( (a) != NULL ) delete (a); (a) = NULL;
 
 Square::Square() {
 	playerPt = 0;
@@ -40,6 +41,13 @@ void Square::putPlayer(Player* player){
 }
 void Square::emptyPlayer(){
 	playerPt = 0;
+}
+int Square::killPlayer(){
+	int playerNb = playerPt->playerNumber();
+	if(playerPt){
+		SAFE_DELETE(playerPt);
+	}
+	return playerNb;
 }
 void Square::putBomb(){
 	bombPt = new Bomb();

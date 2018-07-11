@@ -11,10 +11,10 @@
 #include "Player.h"
 #include "Wall.h"
 #include "Square.h"
+#include <string>
 
 class Gameboard {
 public:
-	Gameboard();
 	Gameboard(int size, int numberOfPlayers);
 	void buildWalls();
 	int updateGameboard();
@@ -31,6 +31,10 @@ public:
 private:
 	Square* grid;
 	int size;
+	int nbPlayer;
+	int nbPlayersAlive;
+	int* playersAlive;
+	int* playersPlayed;
 
 	void AreBombExploding();
 	void getPlayersMove();
@@ -40,6 +44,8 @@ private:
 	bool isDestinationOccupied(int position, int move);
 	int isThereAWinner();
 	void explosion(int position);
+	int* playersInRange(int position,int nbPlayer);
+	void newTurn();
 };
 
 #endif /* GAMEBOARD_H_ */

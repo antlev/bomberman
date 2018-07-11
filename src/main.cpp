@@ -17,6 +17,7 @@ int main(int argc, char *argv[]) {
 //		conf = argv[1];
 //	}
 	Game game(conf);
+	srand (time(NULL));
 
 	game.Game::start();
 

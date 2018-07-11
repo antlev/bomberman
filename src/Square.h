@@ -26,6 +26,7 @@ public:
 	void putBomb();
 	void putWall();
 	void emptyBomb();
+	int killPlayer();
 
 private:
 	Bomb* bombPt;
