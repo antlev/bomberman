@@ -52,7 +52,7 @@ int Gameboard::updateGameboard(){
 	AreBombExploding();
 	getPlayersMove();
 	newTurn();
-	printDebug(); // DEBUG
+//	printDebug(); // DEBUG
 	return isThereAWinner();
 }
 int Gameboard::isThereAWinner(){
@@ -81,10 +81,10 @@ void Gameboard::getPlayersMove(){
 					move = askPlayerMove(player->playerNumber());
 					if(move != 0){
 						if(isActionValid(row*size+col, move, player)){
-							std::cout << "action is valid" << std::endl; // DEBUG
+//							std::cout << "action is valid" << std::endl; // DEBUG
 							ActionPlayer(row*size+col, move, player);
 						}else{
-							std::cout << "action is not valid" << std::endl; // DEBUG
+//							std::cout << "action is not valid" << std::endl; // DEBUG
 						}
 					}
 				}
@@ -101,7 +101,7 @@ void Gameboard::newTurn(){
 int Gameboard::askPlayerMove(int player){
 	// TODO ask for player move
 	int move = (rand() % 6) - 1;
-	std::cout << "player " + std::to_string(player) + " move is " + std::to_string(move) << std::endl;
+//	std::cout << "player " + std::to_string(player) + " move is " + std::to_string(move) << std::endl;
 	return move;
 }
 // -1:bomb 0:nothing 1:up 2:down 3:<- 4:->
@@ -120,7 +120,7 @@ void Gameboard::ActionPlayer(int position, int move, Player* player){
 		grid[position].putBomb();
 	}else{
 		grid[position].emptyPlayer();
-		std::cout << "putting player " + std::to_string(player->playerNumber()) + " in position " + std::to_string(position/size) +":" + std::to_string(position%size) << std::endl; // DEBUG
+//		std::cout << "putting player " + std::to_string(player->playerNumber()) + " in position " + std::to_string(position/size) +":" + std::to_string(position%size) << std::endl; // DEBUG
 		grid[getDestination(position, move)].putPlayer(player);
 	}
 

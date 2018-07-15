@@ -9,7 +9,7 @@
 #include <iostream>
 
 Player::Player(int number) : number(number) {
-	std::cout << "Creating player nb" << number <<std::endl;
+//	std::cout << "Creating player nb" << number <<std::endl;
 }
 int Player::playerNumber(){
 	return number;

@@ -65,7 +65,6 @@ bool Square::isBomb(){
 	}
 	return 0;
 }
-
 bool Square::isWall(){
 	if(wallPt != 0){
 		return 1;

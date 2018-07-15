@@ -25,6 +25,8 @@ int main(int argc, char *argv[]) {
 		game.Game::nextTurn();
 	}
 
-	game.showResults();
+
+	while(1);
+
 	return 0;
 }

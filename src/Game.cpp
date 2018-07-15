@@ -6,6 +6,7 @@
  */
 
 #include <iostream>
+#include <string>
 #include "Game.h"
 #include <chrono>
 #include <thread>
@@ -16,17 +17,26 @@ Game::Game(std::string confFile){
 	if(confFile != ""){
 		this->confFile = confFile;
 		// TODO read confFile
-	}else{
-		std::cout << "Setting default values" << std::endl;
 		nbPlayer = 4;
-		nbBombMax = 3;
-		bombDuration = 10;
-		bombRange = 5;
+		int nbBombMax = 3;
+		int bombDuration = 10;
+		int bombRange = 5;
+		settings = new Settings(nbPlayer, nbBombMax, bombDuration, bombRange);
+	}else{
+		nbPlayer = 4;
+		int nbBombMax = 3;
+		int bombDuration = 10;
+		int bombRange = 5;
+		settings = new Settings(nbPlayer, nbBombMax, bombDuration, bombRange);
+
 		wallPlacement = 0;
 	}
+	playerMoves = new int[nbPlayer];
+	com = new Communication();
 	winner = 0;
 	nbTurn = 0;
 	int size = 10;
+
 	gameboard = new Gameboard(size, nbPlayer);
 
 	srand (time(NULL));
@@ -39,10 +49,9 @@ Game::Game(std::string confFile){
 			  col = (rand() % (size-2))+1;
 			  row = (rand() % (size-2))+1;
 		  } while(gameboard->isOccupied(row*size+col));
-		  std::cout << "putting player " + std::to_string(playerNb) + " in position " + std::to_string(row) +":" + std::to_string(col) << std::endl; // DEBUG
 		  gameboard->putPlayer(row*size+col, player);
 	}
-	gameboard->printDebug(); // DEBUG
+//	gameboard->printDebug(); // DEBUG
 }
 int Game::isFinished(){
 	if(winner == 0){
@@ -56,15 +65,45 @@ int Game::isFinished(){
 	return 1;
 }
 void Game::start(){
-	std::cout << "Game is starting" << std::endl;
+	nbPlayer = com->start();
+	com->sendSetting(settings);
 	nbTurn = 1;
 }
 void Game::nextTurn(){
-	std::cout << "Turn number " << std::to_string(nbTurn) << std::endl;
+	getPlayersMove();
 	winner = gameboard->updateGameboard();
 	nbTurn++;
 	std::this_thread::sleep_for(std::chrono::seconds(1));
-}
-void Game::showResults(){
 
 }
+void Game::getPlayersMove(){
+	for(int i=0;i<nbPlayer;i++){
+		std::string move = com->askMove(nbTurn, i);
+		setPlayersMove(i, sanitiseMove(move));
+	}
+}
+int Game::sanitiseMove(std::string move){
+	if(move == "NOACTION"){
+		return 0;
+	}
+	if(move == "U"){
+		return 1;
+	}
+	if(move == "D"){
+		return 2;
+	}
+	if(move == "L"){
+		return 3;
+	}
+	if(move == "R"){
+		return 4;
+	}
+	if(move == "B"){
+		return -1;
+	}
+	return 0;
+}
+void Game::setPlayersMove(int player, int move){
+	playerMoves[player] = move;
+}
+
