@@ -8,8 +8,8 @@
 #include "Player.h"
 #include <iostream>
 
-Player::Player(int number) : number(number) {
-//	std::cout << "Creating player nb" << number <<std::endl;
+Player::Player(int number, int position) : number(number), position(position){
+	numberBomb=0;
 }
 int Player::playerNumber(){
 	return number;
@@ -19,5 +19,11 @@ bool Player::canPutBomb(){
 		return true;
 	}
 	return false;
+}
+int Player::getPosition(){
+	return position;
+}
+void Player::setPosition(int position){
+	this->position = position;
 }
 

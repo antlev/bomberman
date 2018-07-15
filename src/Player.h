@@ -10,13 +10,17 @@
 
 class Player {
 public:
-	Player(int number);
+	Player(int number, int position);
 	int playerNumber();
 	bool canPutBomb();
+	int getPosition();
+	void setPosition(int position);
 
 private:
 	int number;
 	int numberBomb;
+	int position;
+;
 };
 
 #endif /* PLAYER_H_ */

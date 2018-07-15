@@ -21,6 +21,16 @@ Gameboard::Gameboard(int size, int nbPlayer) : size(size), nbPlayer(nbPlayer), n
 	for(int i=0;i<nbPlayer;i++){
 		playersAlive[i] = 1;
 	}
+	for(int playerNb=0;playerNb<nbPlayer;playerNb++){
+		  int col,row;
+		  do{
+			  col = (rand() % (size-2))+1;
+			  row = (rand() % (size-2))+1;
+		  } while(isOccupied(row*size+col));
+		  players = new Player*[nbPlayer];
+		  players[playerNb] = new Player(playerNb, row*size+col);
+		  putPlayer(row*size+col, players[playerNb]);
+	}
 	buildWalls();
 }
 void Gameboard::buildWalls(){
@@ -50,11 +60,14 @@ void Gameboard::printDebug(){
 }
 int Gameboard::updateGameboard(){
 	AreBombExploding();
-	getPlayersMove();
 	newTurn();
 //	printDebug(); // DEBUG
 	return isThereAWinner();
 }
+void Gameboard::setPlayerMove(int playerNb, int move){
+	ActionPlayer(players[playerNb]->getPosition(), move, players[playerNb]);
+}
+
 int Gameboard::isThereAWinner(){
 	if(nbPlayersAlive <= 0){
 		return -1;
@@ -68,41 +81,10 @@ int Gameboard::isThereAWinner(){
 	}
 	return 0;
 }
-void Gameboard::getPlayersMove(){
-	Player* player;
-	int move;
-
-	for(int row=0;row<size;row++){
-		for(int col=0;col<size;col++){
-			if(grid[row*size+col].isPlayer() == 1){
-				player = grid[row*size+col].getPlayer();
-				if(playersPlayed[player->playerNumber()] == 0){
-					playersPlayed[player->playerNumber()] = 1;
-					move = askPlayerMove(player->playerNumber());
-					if(move != 0){
-						if(isActionValid(row*size+col, move, player)){
-//							std::cout << "action is valid" << std::endl; // DEBUG
-							ActionPlayer(row*size+col, move, player);
-						}else{
-//							std::cout << "action is not valid" << std::endl; // DEBUG
-						}
-					}
-				}
-
-			}
-		}
-	}
-}
 void Gameboard::newTurn(){
 	for(int i=0;i<nbPlayer;i++){
 		playersPlayed[i] = 0;
 	}
-}
-int Gameboard::askPlayerMove(int player){
-	// TODO ask for player move
-	int move = (rand() % 6) - 1;
-//	std::cout << "player " + std::to_string(player) + " move is " + std::to_string(move) << std::endl;
-	return move;
 }
 // -1:bomb 0:nothing 1:up 2:down 3:<- 4:->
 bool Gameboard::isActionValid(int position, int move, Player* player){
@@ -116,14 +98,14 @@ bool Gameboard::isActionValid(int position, int move, Player* player){
 	return -1;
 }
 void Gameboard::ActionPlayer(int position, int move, Player* player){
-	if(move == -1){
-		grid[position].putBomb();
-	}else{
-		grid[position].emptyPlayer();
-//		std::cout << "putting player " + std::to_string(player->playerNumber()) + " in position " + std::to_string(position/size) +":" + std::to_string(position%size) << std::endl; // DEBUG
-		grid[getDestination(position, move)].putPlayer(player);
+	if(move != 0){
+		if(move == -1){
+			grid[position].putBomb();
+		}else{
+			grid[position].emptyPlayer();
+			grid[getDestination(position, move)].putPlayer(player);
+		}
 	}
-
 }
 void Gameboard::AreBombExploding(){
 	for(int row=0;row<size;row++){
@@ -236,5 +218,6 @@ void Gameboard::putBomb(int row,int col, int move){
 
 }
 void Gameboard::putPlayer(int position, Player* player){
+	player->setPosition(position);
 	grid[position].putPlayer(player);
 }

@@ -20,8 +20,8 @@ public:
 	void nextTurn();
 	void showResults();
 	void getPlayersMove();
-	void setPlayersMove(int player, int move);
-	int sanitiseMove(std::string move);
+	void setPlayerMove(int player, int move);
+	int getPlayerMove(int player);
 
 private:
 	int nbTurn;
@@ -33,6 +33,7 @@ private:
 	std::string confFile;
 	Gameboard* gameboard;
 	Communication* com;
+	int sanitiseMove(std::string move);
 
 };
 

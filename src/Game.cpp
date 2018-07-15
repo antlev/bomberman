@@ -38,19 +38,6 @@ Game::Game(std::string confFile){
 	int size = 10;
 
 	gameboard = new Gameboard(size, nbPlayer);
-
-	srand (time(NULL));
-	int playerNb;
-
-	for(playerNb=0;playerNb<nbPlayer;playerNb++){
-		  int col,row;
-		  Player* player = new Player(playerNb);
-		  do{
-			  col = (rand() % (size-2))+1;
-			  row = (rand() % (size-2))+1;
-		  } while(gameboard->isOccupied(row*size+col));
-		  gameboard->putPlayer(row*size+col, player);
-	}
 //	gameboard->printDebug(); // DEBUG
 }
 int Game::isFinished(){
@@ -74,12 +61,11 @@ void Game::nextTurn(){
 	winner = gameboard->updateGameboard();
 	nbTurn++;
 	std::this_thread::sleep_for(std::chrono::seconds(1));
-
 }
 void Game::getPlayersMove(){
-	for(int i=0;i<nbPlayer;i++){
-		std::string move = com->askMove(nbTurn, i);
-		setPlayersMove(i, sanitiseMove(move));
+	for(int playerNb=0;playerNb<nbPlayer;playerNb++){
+		std::string move = com->askMove(nbTurn, playerNb);
+		setPlayerMove(playerNb, sanitiseMove(move));
 	}
 }
 int Game::sanitiseMove(std::string move){
@@ -103,7 +89,9 @@ int Game::sanitiseMove(std::string move){
 	}
 	return 0;
 }
-void Game::setPlayersMove(int player, int move){
-	playerMoves[player] = move;
+void Game::setPlayerMove(int player, int move){
+	gameboard->setPlayerMove(player, move);
 }
-
+int Game::getPlayerMove(int player){
+	return playerMoves[player];
+}

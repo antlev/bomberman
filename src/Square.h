@@ -31,7 +31,8 @@ public:
 private:
 	Bomb* bombPt;
 	Player* playerPt;
-	Wall* wallPt;
+	int wall;
+
 };
 
 #endif /* SQUARE_H_ */
