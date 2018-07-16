@@ -11,12 +11,11 @@
 using namespace std;
 
 int main(int argc, char *argv[]) {
-	string conf = "";
-//	if(argc > 1){
-//		std::cout << argv[1] << std::endl;
-//		conf = argv[1];
-//	}
-	Game game(conf);
+	string confPath = "";
+	if(argc > 1){
+		confPath = argv[1];
+	}
+	Game game(confPath);
 	srand (time(NULL));
 
 	game.Game::start();

@@ -16,17 +16,22 @@ public:
 	int isFinished();
 	void nextTurn();
 	void showResults();
+	void readAndSetConf(std::string confFile);
 
 private:
 	int nbTurn;
 	int nbPlayer;
-	int nbBombMax;
-	int bombDuration;
-	int bombRange;
+	int nbBombMax; //alex
+	int bombDuration; //alex
+	int bombRange; //alex
 	short wallPlacement;
 	int winner;
 	std::string confFile;
 	Gameboard* gameboard;
+	void setDefault();
+	void setDefaultbombRange();
+	void setDefaultbombDuration();
+	void setDefaultnbBombMax();
 };
 
 #endif /* GAME_H_ */
